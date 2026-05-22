@@ -7,6 +7,10 @@ venv/
 env/
 .env
 
+# Permite solo este Excel específico
+data/*
+!data/Clasificacion_RCV_Completo.xlsx
+
 # Python
 __pycache__/
 *.pyc

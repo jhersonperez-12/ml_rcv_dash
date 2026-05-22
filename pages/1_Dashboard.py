@@ -26,6 +26,7 @@ st.set_page_config(
 
 BASE_DIR   = os.path.dirname(os.path.dirname(__file__))
 SILVER_CSV = os.path.join(BASE_DIR, "layers", "silver", "rcv_clean.csv")
+DATA_EXCEL = os.path.join(BASE_DIR, "data", "Clasificacion_RCV_Completo.xlsx")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 
 COLORES = {
@@ -41,7 +42,23 @@ COLORES = {
 # ──────────────────────────────────────────────
 @st.cache_data
 def cargar_datos():
-    df = pd.read_csv(SILVER_CSV)
+    # Intenta cargar el CSV procesado (entorno local con pipeline ejecutado)
+    if os.path.exists(SILVER_CSV):
+        df = pd.read_csv(SILVER_CSV)
+    # Si no existe (Streamlit Cloud), procesa desde el Excel directamente
+    elif os.path.exists(DATA_EXCEL):
+        df = pd.read_excel(DATA_EXCEL)
+        # Reemplazar códigos de ausencia por NaN
+        codigos_ausencia = [99, 999, 9999]
+        for col in df.select_dtypes(include="number").columns:
+            df[col] = df[col].replace(codigos_ausencia, np.nan)
+        # Imputar con mediana
+        for col in df.select_dtypes(include="number").columns:
+            df[col] = df[col].fillna(df[col].median())
+    else:
+        st.error("⚠️ No se encontró el archivo de datos. Sube 'data/Clasificacion_RCV_Completo.xlsx' al repositorio.")
+        st.stop()
+
     df["SEXO_LABEL"] = df["SEXO"].map({1: "Masculino", 2: "Femenino"})
     df["DIABETES_LABEL"] = df["DIABETES"].map({0: "No", 1: "Sí"})
     df["TABAQUISMO_LABEL"] = df["HABITO_TABAQUICO"].map({
