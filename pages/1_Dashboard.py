@@ -173,11 +173,15 @@ st.markdown("""
 c1, c2 = st.columns([1, 1])
 
 with c1:
-    # Distribución por Edad con enfoque narrativo
+    # CORRECCIÓN: Agrupamos por GRUPO_EDAD y mantenemos consistencia en px.bar
     edad_df = df.groupby(["GRUPO_EDAD", "CLASIFICACION_RIESGO"], observed=False).size().reset_index(name="Pacientes")
     fig_edad = px.bar(
-        edad_df, x="Grupo edad", y="Pacientes", color="CLASIFICACION_RIESGO",
-        color_discrete_map=COLOR_MAP, category_orders={"CLASIFICACION_RIESGO": ORDEN_RIESGO},
+        edad_df, 
+        x="GRUPO_EDAD",  # <--- CORREGIDO: Antes decía "Grupo edad"
+        y="Pacientes", 
+        color="CLASIFICACION_RIESGO",
+        color_discrete_map=COLOR_MAP, 
+        category_orders={"CLASIFICACION_RIESGO": ORDEN_RIESGO},
         title="<b>Distribución por Edad:</b> El riesgo crítico escala exponencialmente a partir de los 60 años"
     )
     fig_edad.update_layout(
@@ -189,11 +193,16 @@ with c1:
     st.plotly_chart(fig_edad, use_container_width=True)
 
 with c2:
-    # Distribución por Sexo y Riesgo
+    # CORRECCIÓN: Aseguramos consistencia en las columnas de Sexo
     riesgo_sexo = df.groupby(["SEXO_LABEL", "CLASIFICACION_RIESGO"]).size().reset_index(name="Pacientes")
     fig_sexo = px.bar(
-        riesgo_sexo, x="Pacientes", y="SEXO_LABEL", color="CLASIFICACION_RIESGO",
-        orientation="h", color_discrete_map=COLOR_MAP, category_orders={"CLASIFICACION_RIESGO": ORDEN_RIESGO},
+        riesgo_sexo, 
+        x="Pacientes", 
+        y="SEXO_LABEL",  # <--- CORREGIDO: Asegurar que coincida con el groupby
+        color="CLASIFICACION_RIESGO",
+        orientation="h", 
+        color_discrete_map=COLOR_MAP, 
+        category_orders={"CLASIFICACION_RIESGO": ORDEN_RIESGO},
         title="<b>Distribución por Sexo:</b> Mayor volumen de casos en mujeres, pero severidad similar"
     )
     fig_sexo.update_layout(
