@@ -1,15 +1,14 @@
-# Datos sensibles (nunca subir)
-data/
+# Capas del pipeline (nunca subir)
 layers/
+
+# Bloquea todo en data/ EXCEPTO el Excel del modelo
+data/*
+!data/Clasificacion_RCV_Completo.xlsx
 
 # Entornos virtuales
 venv/
 env/
 .env
-
-# Permite solo este Excel específico
-data/*
-!data/Clasificacion_RCV_Completo.xlsx
 
 # Python
 __pycache__/
@@ -21,4 +20,5 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+*.ipynbkpoints/
 *.ipynb
