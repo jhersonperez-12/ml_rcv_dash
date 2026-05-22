@@ -109,7 +109,6 @@ st.markdown(f"""
     }}
     .kpi-valor {{ font-size: 2.3rem; font-weight: 800; margin: 0; line-height: 1.1; }}
     .kpi-label {{ font-size: 0.85rem; color: #627D98; margin: 5px 0 0 0; font-weight: 600; }}
-    [data-testid="stSidebar"] {{ display: none; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -163,6 +162,7 @@ for col, val, lbl, color in kpis:
 # ──────────────────────────────────────────────
 # SECCIÓN 2 — CARACTERIZACIÓN (Simplificada y Enfocada)
 # ──────────────────────────────────────────────
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown('<p class="titulo-seccion">👥 Demografía: ¿Dónde se concentra la población vulnerable?</p>', unsafe_allow_html=True)
 st.markdown("""
 <div class="narrativa">
@@ -244,17 +244,6 @@ for idx, (var, label) in enumerate(vars_filtradas):
         )
         st.plotly_chart(fig_box, use_container_width=True)
 
-# Correlación con paleta neutra correcta para no confundir con colores de riesgo
-st.markdown("<br><b>Asociaciones Ocultas: Matriz de Correlación de Variables Continuas</b>", unsafe_allow_html=True)
-vars_corr = ["EDAD", "IMC", "COLESTEROL_HDL", "COLESTEROL_LDL", "TRIGLICERIDOS", "PRESION_ARTERIAL_SISTOLICA", "PRESION_ARTERIAL_DIASTOLICA"]
-corr = df[vars_corr].corr().round(2)
-fig_corr = px.imshow(
-    corr, text_auto=True, color_continuous_scale="Viridis", zmin=-1, zmax=1,
-    title="La presión sistólica y el perfil lipídico guían los patrones de agrupación biológica"
-)
-fig_corr.update_layout(template="streamlit", margin=dict(t=40, b=10))
-st.plotly_chart(fig_corr, use_container_width=True)
-
 # ──────────────────────────────────────────────
 # SECCIÓN 4 — ARQUITECTURA E INGENIERÍA
 # ──────────────────────────────────────────────
@@ -303,6 +292,7 @@ with m3:
 # ──────────────────────────────────────────────
 # SECCIÓN 5 — DATA SCIENCE EN LA OPERACIÓN MEDICA
 # ──────────────────────────────────────────────
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown('<p class="titulo-seccion">🤖 Inteligencia de Negocio: Impacto Operativo del Modelo</p>', unsafe_allow_html=True)
 st.markdown("""
 <div class="narrativa">
@@ -373,14 +363,14 @@ with cb:
         st.info("💡 Gráfico de importancia de variables disponible al entrenar el modelo.")
 
 # Matriz de Confusión optimizada visualmente
-st.markdown("<br><b>Validación Cruzada: Matriz de Confusión del Modelo Seleccionado</b>", unsafe_allow_html=True)
+st.markdown("<br><div style='text-align:center'><b>Validación Cruzada: Matriz de Confusión del Modelo Seleccionado</b></div>", unsafe_allow_html=True)
 conf_matrix = np.array([[662, 13, 33], [27, 416, 24], [33, 50, 242]])
 fig_cm = px.imshow(
     conf_matrix,
-    labels=dict(x="Predicción de la IA", y="Diagnóstico Real (Médico)", color="Pacientes"),
+    labels=dict(x="Predicción del Modelo", y="Diagnóstico Real (Médico)", color="Pacientes"),
     x=ORDEN_RIESGO, y=ORDEN_RIESGO,
     color_continuous_scale="Purples", text_auto=True,
-    title="La fuerte concentración en la diagonal principal corrobora la efectividad del despliegue"
+    #title="La fuerte concentración en la diagonal principal corrobora la efectividad del despliegue"
 )
 fig_cm.update_layout(template="streamlit", margin=dict(t=40, b=10))
 st.plotly_chart(fig_cm, use_container_width=True)
