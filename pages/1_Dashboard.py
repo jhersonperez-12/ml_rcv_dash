@@ -30,13 +30,13 @@ MODELS_DIR = os.path.join(BASE_DIR, "models")
 
 # Paleta de colores consistente y con significado semántico
 COLORES = {
-    "ALTO":      "#E63946",  # Rojo Alerta
-    "MODERADO":  "#F4A261",  # Naranja Advertencia
-    "BAJO":      "#2DC653",  # Verde Seguro
-    "primario":  "#1D3557",  # Azul Marino Institucional
-    "secundario":"#457B9D",  # Azul Claro de apoyo
-    "gris_fiel": "#6C757D",  # Gris para texto secundario
-    "fondo_kpi": "#F8F9FA",  # Fondo neutro claro
+    "ALTO":      "#0088AD",  # Azul petróleo — riesgo alto
+    "MODERADO":  "#00a8c1",  # Azul medio análogo
+    "BAJO":      "#9cebf9",  # Azul claro análogo
+    "primario":  "#1D3557",
+    "secundario":"#457B9D",
+    "gris_fiel": "#6C757D",
+    "fondo_kpi": "#F8F9FA",
 }
 
 # ──────────────────────────────────────────────
