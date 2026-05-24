@@ -20,7 +20,65 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+# Encuentra la sección después de st.set_page_config (alrededor de la línea 22)
+# y AGREGA este código CSS:
 
+st.set_page_config(
+    page_title="Clasificador de Riesgo Cardiovascular",
+    page_icon="🫀",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+# ──────────────────────────────────────────────
+# ESTILOS CSS PERSONALIZADOS PARA SIDEBAR
+# ──────────────────────────────────────────────
+st.markdown("""
+<style>
+    /* Fondo del sidebar */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #1D3557 0%, #457B9D 100%);
+    }
+    
+    /* Texto del sidebar */
+    [data-testid="stSidebar"] * {
+        color: white !important;
+    }
+    
+    /* Headers del sidebar */
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 {
+        color: white !important;
+        font-weight: 700 !important;
+    }
+    
+    /* Labels de los inputs */
+    [data-testid="stSidebar"] label {
+        color: white !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Inputs del sidebar */
+    [data-testid="stSidebar"] input,
+    [data-testid="stSidebar"] select {
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        color: #1D3557 !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    /* Botón de predicción */
+    [data-testid="stSidebar"] button[kind="primary"] {
+        background-color: #DE7A24 !important;
+        color: white !important;
+        font-weight: 700 !important;
+        border: none !important;
+    }
+    
+    [data-testid="stSidebar"] {
+        background-color: rgba(29, 53, 87, 0.15);
+    }
+</style>
+""", unsafe_allow_html=True)
 # ──────────────────────────────────────────────
 # CARGA DE ARTEFACTOS
 # ──────────────────────────────────────────────
@@ -71,12 +129,28 @@ def preparar_fila(datos_usuario: dict, feature_names: list) -> pd.DataFrame:
 # ──────────────────────────────────────────────
 def main():
     # ── Cabecera ──────────────────────────────
-    st.title("🫀 Clasificador de Riesgo Cardiovascular")
-    st.markdown(
-        "Ingresa los datos del paciente en el panel lateral y presiona **Predecir** "
-        "para obtener la clasificación de riesgo cardiovascular."
-    )
-    st.divider()
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg, #1D3557 0%, #0088AD 100%);
+        border-radius: 14px;
+        padding: 28px 36px;
+        margin-bottom: 24px;
+        color: white;
+    ">
+        <div style="display:flex; align-items:center; gap:16px;">
+            <span style="font-size:3rem;">🫀</span>
+            <div>
+                <h1 style="margin:0; font-size:1.9rem; font-weight:800;">
+                    Clasificador de Riesgo Cardiovascular
+                </h1>
+                <p style="margin:6px 0 0 0; font-size:1rem; opacity:0.88;">
+                    Ingresa los datos del paciente en el panel lateral y presiona 
+                    <b>Predecir</b> para obtener la clasificación de riesgo cardiovascular.
+                </p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     # ── Carga del modelo ──────────────────────
     try:
@@ -137,28 +211,66 @@ def main():
     col_resumen, col_detalle = st.columns([1, 2])
 
     with col_resumen:
-        st.subheader("Resumen del paciente")
-        resumen = {
-            "Edad":              f"{edad} años",
-            "Peso":              f"{peso} kg",
-            "Talla":             f"{talla} cm",
-            "IMC":               f"{imc:.1f} kg/m²",
-            "Categoría IMC":     cat_imc,
-            "Col. HDL":          f"{col_hdl:.1f} mg/dL",
-            "Col. LDL":          f"{col_ldl:.1f} mg/dL",
-            "Triglicéridos":     f"{trigli:.1f} mg/dL",
-            "Col. Total":        f"{col_total:.1f} mg/dL",
-            "P. Sistólica":      f"{pas:.1f} mmHg",
-            "P. Diastólica":     f"{pad:.1f} mmHg",
-            "Creatinina":        f"{creat:.2f} mg/dL",
-            "Sexo":              "Masculino" if sexo == 1 else "Femenino",
-            "Tabaquismo": {0: "No fumador", 1: "Ex fumador", 2: "Fumador ocasional", 3: "Fumador habitual"}.get(tabaquismo, str(tabaquismo)),
-            "Diabetes":          "Sí" if diabetes == 1 else "No",
-        }
-        st.table(pd.DataFrame(resumen.items(), columns=["Variable", "Valor"]))
+        st.markdown("""
+        <div style="background:#EEF6FA; border-left:5px solid #0088AD;
+                    border-radius:6px; padding:14px 18px; margin-bottom:14px;">
+            <p style="margin:0; color:#1D3557; font-size:0.9rem; font-weight:600;">
+                📋 Resumen del paciente
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
+        resumen = [
+            ("Edad",          f"{edad} años"),
+            ("Peso",          f"{peso} kg"),
+            ("Talla",         f"{talla} cm"),
+            ("IMC",           f"{imc:.1f} kg/m²"),
+            ("Categoría IMC", cat_imc),
+            ("Col. HDL",      f"{col_hdl:.1f} mg/dL"),
+            ("Col. LDL",      f"{col_ldl:.1f} mg/dL"),
+            ("Triglicéridos", f"{trigli:.1f} mg/dL"),
+            ("Col. Total",    f"{col_total:.1f} mg/dL"),
+            ("P. Sistólica",  f"{pas:.1f} mmHg"),
+            ("P. Diastólica", f"{pad:.1f} mmHg"),
+            ("Creatinina",    f"{creat:.2f} mg/dL"),
+            ("Sexo",          "Masculino" if sexo == 1 else "Femenino"),
+            ("Tabaquismo",    {0: "No fumador", 1: "Ex fumador",
+                            2: "Fumador ocasional", 3: "Fumador habitual"}.get(tabaquismo, str(tabaquismo))),
+            ("Diabetes",      "Sí" if diabetes == 1 else "No"),
+        ]
+
+        filas_html = "".join(f"""
+            <tr style="background:{'#F4F8FB' if i % 2 == 0 else 'white'};">
+                <td style="padding:7px 12px; color:#555; font-size:0.83rem;">{k}</td>
+                <td style="padding:7px 12px; color:#1D3557; font-weight:600;
+                        font-size:0.83rem; text-align:right;">{v}</td>
+            </tr>""" for i, (k, v) in enumerate(resumen))
+
+        st.markdown(f"""
+        <div style="border-radius:6px; background:white; overflow:hidden;">
+            <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                    <tr style="background:#1D3557;">
+                        <th style="padding:6px 12px; color:#ffffff; font-size:0.78rem;
+                                font-weight:600; text-align:center;">Variable</th>
+                        <th style="padding:6px 12px; color:#ffffff; font-size:0.78rem;
+                                font-weight:600; text-align:center;">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>{filas_html}</tbody>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
+    
     with col_detalle:
-        st.subheader("Resultado de la clasificación")
+        st.markdown("""
+        <div style="background:#EEF6FA; border-left:5px solid #0088AD;
+                    border-radius:6px; padding:14px 18px; margin-bottom:14px;">
+            <p style="margin:0; color:#1D3557; font-size:0.9rem; font-weight:600;">
+                Resultado de la Clasificación
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
         if predecir_btn:
             datos_usuario = {
@@ -194,20 +306,35 @@ def main():
                     background:{color}22;
                     border: 2px solid {color};
                     border-radius: 12px;
-                    padding: 20px 28px;
+                    padding: 12px 20px;
                     text-align: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 20px;
                 ">
-                    <p style="font-size:3rem; margin:0">{icono}</p>
-                    <p style="font-size:1.1rem; color:gray; margin:4px 0">Clasificación de riesgo</p>
-                    <p style="font-size:2.5rem; font-weight:700; color:{color}; margin:0">
-                        {pred_clase}
-                    </p>
+                    <span style="font-size:1.8rem;">{icono}</span>
+                    <div>
+                        <p style="font-size:0.82rem; color:gray; margin:0">Clasificación de riesgo</p>
+                        <p style="font-size:1.6rem; font-weight:700; color:{color}; margin:0">
+                            {pred_clase}
+                        </p>
+                    </div>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
-            st.markdown("#### Probabilidades por clase")
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("""
+            <div style="background:#EEF6FA; border-left:5px solid #0088AD;
+                        border-radius:6px; padding:14px 18px; margin-bottom:14px;">
+                <p style="margin:0; color:#1D3557; font-size:0.9rem; font-weight:600;">
+                    Probabilidades por clase
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
             proba_df = pd.DataFrame(
                 {"Clase": le.classes_, "Probabilidad (%)": (pred_proba * 100).round(2)}
             ).sort_values("Probabilidad (%)", ascending=False)
@@ -215,14 +342,70 @@ def main():
             for _, row in proba_df.iterrows():
                 c, p = row["Clase"], row["Probabilidad (%)"]
                 c_hex, _ = color_riesgo(c)
-                st.markdown(f"**{c}**")
-                st.progress(int(p), text=f"{p:.1f}%")
+                ancho = int(p)
+                st.markdown(f"""
+                <div style="margin-bottom:10px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                        <span style="font-size:0.83rem; font-weight:600; color:#1D3557;">{c}</span>
+                        <span style="font-size:0.83rem; font-weight:700; color:{c_hex};">{p:.1f}%</span>
+                    </div>
+                    <div style="background:#E8ECF0; border-radius:20px;
+                                height:10px; overflow:hidden;">
+                        <div style="width:{ancho}%; background:{c_hex};
+                                    height:10px; border-radius:20px;
+                                    transition: width 0.5s ease;"></div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+            st.markdown("""
+            <div style="background:#EEF6FA; border-left:5px solid #0088AD;
+                        border-radius:6px; padding:14px 18px; margin-bottom:14px;">
+                <p style="margin:0; color:#1D3557; font-size:0.9rem; font-weight:600;">
+                    🔍 Variables más influyentes
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
 
-            st.markdown("#### Variables más influyentes (top 10)")
+            nombres_legibles = {
+                "PRESION_ARTERIAL_SISTOLICA":  "Presión Sistólica",
+                "PRESION_ARTERIAL_DIASTOLICA": "Presión Diastólica",
+                "COLESTEROL_LDL":              "Colesterol LDL",
+                "COLESTEROL_HDL":              "Colesterol HDL",
+                "TRIGLICERIDOS":               "Triglicéridos",
+                "COLESTEROL_TOTAL":            "Colesterol Total",
+                "CREATININA_SERICA":           "Creatinina Sérica",
+                "EDAD":                        "Edad",
+                "IMC":                         "IMC",
+                "PESO":                        "Peso",
+                "TALLA":                       "Talla",
+                "DIABETES":                    "Diabetes",
+                "HABITO_TABAQUICO":            "Hábito Tabáquico",
+                "SEXO":                        "Sexo",
+            }
+
             importancias = pd.Series(
                 modelo.feature_importances_, index=feature_names
-            ).nlargest(10).sort_values()
-            st.bar_chart(importancias)
+            ).nlargest(5).sort_values(ascending=False)
+
+            max_imp = importancias.max()
+            for var, val in importancias.items():
+                nombre = nombres_legibles.get(var, var)
+                ancho  = int((val / max_imp) * 100)
+                st.markdown(f"""
+                <div style="margin-bottom:8px;">
+                    <div style="display:flex; justify-content:space-between;
+                                margin-bottom:3px;">
+                        <span style="font-size:0.80rem; color:#555;">{nombre}</span>
+                        <span style="font-size:0.80rem; font-weight:600; color:#0088AD;">{val:.3f}</span>
+                    </div>
+                    <div style="background:#E8ECF0; border-radius:20px;
+                                height:8px; overflow:hidden;">
+                        <div style="width:{ancho}%; background:#0088AD;
+                                    height:8px; border-radius:20px;"></div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
 
         else:
             st.info("⬅️ Completa los datos en el panel lateral y presiona **Predecir riesgo**.")

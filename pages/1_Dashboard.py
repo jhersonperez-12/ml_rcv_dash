@@ -20,7 +20,7 @@ st.set_page_config(
     page_title="Dashboard RCV · Storytelling",
     page_icon="🫀",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 BASE_DIR   = os.path.dirname(os.path.dirname(__file__))
@@ -30,9 +30,9 @@ MODELS_DIR = os.path.join(BASE_DIR, "models")
 
 # Paleta de colores consistente y con significado semántico
 COLORES = {
-    "ALTO":      "#0088AD",  # Azul petróleo — riesgo alto
-    "MODERADO":  "#00a8c1",  # Azul medio análogo
-    "BAJO":      "#9cebf9",  # Azul claro análogo
+    "ALTO":      "#DE7A24",  # Azul petróleo — riesgo alto
+    "MODERADO":  "#FACC70",  # Azul medio análogo
+    "BAJO":      "#20948B",  # Azul claro análogo
     "primario":  "#1D3557",
     "secundario":"#457B9D",
     "gris_fiel": "#6C757D",
@@ -89,6 +89,34 @@ COLOR_MAP     = {k: COLORES[k] for k in ORDEN_RIESGO}
 # ──────────────────────────────────────────────
 st.markdown(f"""
 <style>
+    /* Estilos del Sidebar */
+    [data-testid="stSidebar"] {{
+        background: linear-gradient(180deg, #1D3557 0%, #457B9D 100%);
+    }}
+
+    [data-testid="stSidebar"] * {{
+        color: white !important;
+    }}
+
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 {{
+        color: white !important;
+        font-weight: 700 !important;
+    }}
+
+    [data-testid="stSidebar"] label {{
+        color: white !important;
+        font-weight: 500 !important;
+    }}
+
+    [data-testid="stSidebar"] input,
+    [data-testid="stSidebar"] select {{
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        color: #1D3557 !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }}
+    
+    /* Estilos de las secciones del Dashboard */
     .titulo-seccion {{
         font-size: 1.4rem; font-weight: 700;
         color: {COLORES['primario']}; border-left: 5px solid {COLORES['primario']};
@@ -128,6 +156,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
+
 # ──────────────────────────────────────────────
 # SECCIÓN 1 — EL PROBLEMA EN CIFRAS
 # ──────────────────────────────────────────────
@@ -154,11 +183,10 @@ kpis = [
 ]
 for col, val, lbl, color in kpis:
     col.markdown(f"""
-    <div class="kpi-box">
+    <div class="kpi-box" style="background: linear-gradient(135deg, {color}40 0%, {color}08 100%); border-left: 4px solid {color};">
         <p class="kpi-valor" style="color:{color}">{val}</p>
-        <p class="kpi-label">{lbl}</p>
+        <p class="kpi-label" style="color:{color}; font-weight:700;">{lbl}</p>
     </div>""", unsafe_allow_html=True)
-
 # ──────────────────────────────────────────────
 # SECCIÓN 2 — CARACTERIZACIÓN (Simplificada y Enfocada)
 # ──────────────────────────────────────────────
@@ -314,6 +342,7 @@ for col, val, lbl, color in metricas:
         <p class="kpi-label">{lbl}</p>
     </div>""", unsafe_allow_html=True)
 
+
 st.markdown("<br>", unsafe_allow_html=True)
 ca, cb = st.columns([1, 1])
 
@@ -369,8 +398,8 @@ fig_cm = px.imshow(
     conf_matrix,
     labels=dict(x="Predicción del Modelo", y="Diagnóstico Real (Médico)", color="Pacientes"),
     x=ORDEN_RIESGO, y=ORDEN_RIESGO,
-    color_continuous_scale="Purples", text_auto=True,
-    #title="La fuerte concentración en la diagonal principal corrobora la efectividad del despliegue"
+    color_continuous_scale=["#FFF5EB", "#F4C7A0", "#DE7A24", "#B35E1A"],  # Degradado de naranja claro a oscuro
+    text_auto=True,
 )
 fig_cm.update_layout(template="streamlit", margin=dict(t=40, b=10))
 st.plotly_chart(fig_cm, use_container_width=True)
