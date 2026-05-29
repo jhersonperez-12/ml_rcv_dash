@@ -33,49 +33,142 @@ st.set_page_config(
 # ──────────────────────────────────────────────
 # ESTILOS CSS PERSONALIZADOS PARA SIDEBAR
 # ──────────────────────────────────────────────
+
 st.markdown("""
 <style>
     /* Fondo del sidebar */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1D3557 0%, #457B9D 100%);
     }
-    
-    /* Texto del sidebar */
-    [data-testid="stSidebar"] * {
+
+    /* ── TODOS los textos del sidebar en blanco por defecto ── */
+    [data-testid="stSidebar"] {
         color: white !important;
     }
-    
-    /* Headers del sidebar */
+
+    /* Labels (títulos de cada campo) siempre blancos */
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] .stNumberInput label,
+    [data-testid="stSidebar"] .stSelectbox label,
+    [data-testid="stSidebar"] p {
+        color: white !important;
+        font-size: 0.75rem !important;
+        font-weight: 500 !important;
+        line-height: 1.1 !important;
+        margin-bottom: 0px !important;
+    }
+
+    /* Subheaders blancos */
     [data-testid="stSidebar"] h2,
     [data-testid="stSidebar"] h3 {
         color: white !important;
         font-weight: 700 !important;
+        margin-top: 10px !important;
+        margin-bottom: 2px !important;
+        font-size: 0.82rem !important;
     }
-    
-    /* Labels de los inputs */
-    [data-testid="stSidebar"] label {
-        color: white !important;
-        font-weight: 500 !important;
-    }
-    
-    /* Inputs del sidebar */
-    [data-testid="stSidebar"] input,
-    [data-testid="stSidebar"] select {
-        background-color: rgba(255, 255, 255, 0.9) !important;
+
+    /* ── NUMBER INPUT ── */
+    [data-testid="stSidebar"] input[type="number"] {
+        background-color: rgba(255, 255, 255, 0.92) !important;
         color: #1D3557 !important;
         border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        height: 28px !important;
+        padding: 2px 8px !important;
+        font-size: 0.78rem !important;
     }
-    
-    /* Botón de predicción */
+
+    [data-testid="stSidebar"] [data-testid="stNumberInput"] > div {
+        height: 30px !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stNumberInput"] button {
+        height: 28px !important;
+        width: 24px !important;
+        padding: 0 !important;
+        background-color: rgba(255,255,255,0.15) !important;
+        color: white !important;
+        border: none !important;
+    }
+
+    /* Contenedor del selectbox — permitir que el texto respire */
+    [data-testid="stSidebar"] [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        background-color: rgba(255, 255, 255, 0.92) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        min-height: 30px !important;
+        height: 30px !important;
+        display: flex !important;
+        align-items: center !important;
+        overflow: visible !important;
+    }
+
+    /* Texto seleccionado centrado verticalmente */
+    [data-testid="stSidebar"] [data-testid="stSelectbox"] [class*="singleValue"],
+    [data-testid="stSidebar"] [data-testid="stSelectbox"] [class*="placeholder"],
+    [data-testid="stSidebar"] [data-testid="stSelectbox"] div[data-baseweb="select"] span,
+    [data-testid="stSidebar"] [data-testid="stSelectbox"] input {
+        color: #1D3557 !important;
+        font-size: 0.75rem !important;
+        line-height: 30px !important;
+        overflow: visible !important;
+    }
+
+    /* Flecha del selectbox */
+    [data-testid="stSidebar"] [data-testid="stSelectbox"] svg {
+        fill: #1D3557 !important;
+    }
+
+    /* Menú desplegable */
+    [data-baseweb="popover"] ul li,
+    [data-baseweb="menu"] ul li,
+    [data-baseweb="popover"] li {
+        color: #1D3557 !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* ── REDUCIR ESPACIADO ── */
+    [data-testid="stSidebar"] .stElementContainer {
+        margin-bottom: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    [data-testid="stSidebar"] .stNumberInput,
+    [data-testid="stSidebar"] .stSelectbox {
+        margin-bottom: 3px !important;
+        padding-bottom: 0px !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+        gap: 0px !important;
+    }
+
+    [data-testid="stSidebar"] .element-container {
+        margin-bottom: 2px !important;
+    }
+
+    /* ── BOTÓN PREDECIR ── */
     [data-testid="stSidebar"] button[kind="primary"] {
         background-color: #DE7A24 !important;
         color: white !important;
         font-weight: 700 !important;
         border: none !important;
     }
-    
-    [data-testid="stSidebar"] {
-        background-color: rgba(29, 53, 87, 0.15);
+
+    /* ── PADDING GENERAL ── */
+    [data-testid="stSidebar"] > div:first-child {
+        padding-top: 0.8rem !important;
+        padding-bottom: 1rem !important;
+    }
+            
+    /* Botones app y Dashboard del sidebar */
+    [data-testid="stSidebar"] [data-testid="stSidebarNav"] a,
+    [data-testid="stSidebar"] [data-testid="stSidebarNav"] span,
+    [data-testid="stSidebar"] nav a,
+    [data-testid="stSidebar"] nav span {
+        color: white !important;
+        background-color: #DE7A24 !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -180,7 +273,7 @@ def main():
         cat_imc = st.selectbox(
             "Categoría IMC",
             # ⚠️ Verifica con: df["CATEGORIA_IMC"].unique()
-            ["NORMAL", "SOBREPESO", "OBESIDAD", "BAJO PESO"]
+            ["Normal", "Sobrepeso", "Obesidad", "Bajo peso"]
         )
 
         st.subheader("Perfil lipídico")
@@ -388,16 +481,16 @@ def main():
                 modelo.feature_importances_, index=feature_names
             ).nlargest(5).sort_values(ascending=False)
 
-            max_imp = importancias.max()
             for var, val in importancias.items():
                 nombre = nombres_legibles.get(var, var)
-                ancho  = int((val / max_imp) * 100)
+                ancho  = int(val * 100)
+                porcentaje = round(val * 100, 1)
                 st.markdown(f"""
                 <div style="margin-bottom:8px;">
                     <div style="display:flex; justify-content:space-between;
                                 margin-bottom:3px;">
                         <span style="font-size:0.80rem; color:#555;">{nombre}</span>
-                        <span style="font-size:0.80rem; font-weight:600; color:#0088AD;">{val:.3f}</span>
+                        <span style="font-size:0.80rem; font-weight:600; color:#0088AD;">{porcentaje}%</span>
                     </div>
                     <div style="background:#E8ECF0; border-radius:20px;
                                 height:8px; overflow:hidden;">
