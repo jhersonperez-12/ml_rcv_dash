@@ -12,6 +12,6 @@ st.markdown("""
 
 components.iframe(
     src="https://app.powerbi.com/view?r=eyJrIjoiMWM3ZTk4ZTYtYzY4ZC00MDYxLWI2NjYtNGE4NjhjZTViZjAzIiwidCI6ImUzOGI2YjNiLWRkMTQtNDVhZi1hZjBhLWU2N2QxYjk2ODQyYSIsImMiOjR9&navContentPaneEnabled=false",
-    height=800,
+    height=750,
     scrolling=False
 )
