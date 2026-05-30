@@ -20,15 +20,22 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-# Encuentra la sección después de st.set_page_config (alrededor de la línea 22)
-# y AGREGA este código CSS:
 
-st.set_page_config(
-    page_title="Clasificador de Riesgo Cardiovascular",
-    page_icon="🫀",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+# ──────────────────────────────────────────────
+# ESTILOS CSS PERSONALIZADOS PARA SIDEBAR
+# ──────────────────────────────────────────────
+
+# ──────────────────────────────────────────────
+# ESTILOS CSS PERSONALIZADOS PARA SIDEBAR
+# ──────────────────────────────────────────────
+
+# ──────────────────────────────────────────────
+# ESTILOS CSS PERSONALIZADOS PARA SIDEBAR
+# ──────────────────────────────────────────────
+
+# ──────────────────────────────────────────────
+# ESTILOS CSS PERSONALIZADOS PARA SIDEBAR
+# ──────────────────────────────────────────────
 
 # ──────────────────────────────────────────────
 # ESTILOS CSS PERSONALIZADOS PARA SIDEBAR
@@ -43,8 +50,39 @@ st.markdown("""
 
 [data-testid="stSidebar"]{
     background: linear-gradient(180deg, #1D3557 0%, #457B9D 100%);
+}
+
+/* Aplicar ancho únicamente cuando está abierto */
+[data-testid="stSidebar"][aria-expanded="true"]{
     min-width: 320px !important;
     max-width: 320px !important;
+}
+
+/* ==========================================
+   FORZAR ESTADO HOVER / ACTIVO EN EL BOTÓN
+========================================== */
+
+/* Selecciona el botón tanto abierto como cerrado y le clava el estado Hover permanentemente */
+button[kind="header"],
+[data-testid="collapsedControl"] button,
+[data-testid="stSidebarCollapseButton"] button {
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Fondo claro permanente */
+    border: 1px solid rgba(255, 255, 255, 0.4) !important; /* Borde para identificarlo */
+    border-radius: 4px !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important; /* Brillo de enfoque */
+}
+
+/* Forzamos que los elementos internos reaccionen como si el mouse estuviera encima */
+[data-testid="stSidebarCollapseButton"] button:svg,
+[data-testid="collapsedControl"] button:svg,
+button[kind="header"]:hover svg,
+[data-testid="stSidebarCollapseButton"] button svg,
+[data-testid="collapsedControl"] button svg {
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
+    color: #ffffff !important;
 }
 
 /* ==========================================

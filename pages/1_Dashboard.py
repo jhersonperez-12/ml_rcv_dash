@@ -22,7 +22,13 @@ st.markdown("""
     max-width: 100%;
 }
 
-header, footer, #MainMenu {
+/* Permitir ver el header para que no se destruya el botón, pero ocultamos su fondo decorativo nativo */
+header {
+    visibility: visible !important;
+    background: transparent !important;
+}
+
+footer, #MainMenu {
     visibility: hidden;
 }
 
@@ -63,6 +69,31 @@ iframe {
 [data-testid="stSidebarNav"] span {
     color: white !important;
     font-weight: 600 !important;
+}
+
+/* ==========================================
+   AGREGADO: CONTROL EXCLUSIVO DEL BOTÓN ILUMINADO
+========================================== */
+
+button[kind="header"],
+[data-testid="collapsedControl"] button,
+[data-testid="stSidebarCollapseButton"] button {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    z-index: 99999 !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-testid="stSidebarCollapseButton"] button svg,
+[data-testid="collapsedControl"] button svg,
+button[kind="header"] svg {
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
+    color: #ffffff !important;
 }
 
 </style>
