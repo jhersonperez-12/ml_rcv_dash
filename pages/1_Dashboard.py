@@ -3,27 +3,68 @@ import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="Dashboard RCV",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# Ocultar márgenes y menú de Streamlit
 st.markdown("""
 <style>
-    .block-container {
-        padding-top: 0rem;
-        padding-bottom: 0rem;
-        padding-left: 0rem;
-        padding-right: 0rem;
-        max-width: 100%;
-    }
 
-    header, footer, #MainMenu {
-        visibility: hidden;
-    }
+/* ==========================
+   CONTENIDO PRINCIPAL
+========================== */
 
-    iframe {
-        border: none;
-    }
+.block-container {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    max-width: 100%;
+}
+
+header, footer, #MainMenu {
+    visibility: hidden;
+}
+
+iframe {
+    border: none;
+}
+
+/* ==========================
+   SIDEBAR
+========================== */
+
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1D3557 0%, #457B9D 100%);
+}
+
+/* Texto blanco */
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* ==========================
+   BOTONES APP / DASHBOARD
+========================== */
+
+[data-testid="stSidebarNav"] a {
+    background-color: #DE7A24 !important;
+    border-radius: 8px !important;
+    color: white !important;
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+}
+
+[data-testid="stSidebarNav"] a:hover {
+    background-color: #F28E2B !important;
+}
+
+[data-testid="stSidebarNav"] span {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 

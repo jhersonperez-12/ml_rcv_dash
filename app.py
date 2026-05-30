@@ -36,140 +36,108 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    /* Fondo del sidebar */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1D3557 0%, #457B9D 100%);
-    }
 
-    /* ── TODOS los textos del sidebar en blanco por defecto ── */
-    [data-testid="stSidebar"] {
-        color: white !important;
-    }
+/* ==========================================
+   SIDEBAR
+========================================== */
 
-    /* Labels (títulos de cada campo) siempre blancos */
-    [data-testid="stSidebar"] label,
-    [data-testid="stSidebar"] .stNumberInput label,
-    [data-testid="stSidebar"] .stSelectbox label,
-    [data-testid="stSidebar"] p {
-        color: white !important;
-        font-size: 0.75rem !important;
-        font-weight: 500 !important;
-        line-height: 1.1 !important;
-        margin-bottom: 0px !important;
-    }
+[data-testid="stSidebar"]{
+    background: linear-gradient(180deg, #1D3557 0%, #457B9D 100%);
+    min-width: 320px !important;
+    max-width: 320px !important;
+}
 
-    /* Subheaders blancos */
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3 {
-        color: white !important;
-        font-weight: 700 !important;
-        margin-top: 10px !important;
-        margin-bottom: 2px !important;
-        font-size: 0.82rem !important;
-    }
+/* ==========================================
+   NAVEGACIÓN DE PÁGINAS
+========================================== */
 
-    /* ── NUMBER INPUT ── */
-    [data-testid="stSidebar"] input[type="number"] {
-        background-color: rgba(255, 255, 255, 0.92) !important;
-        color: #1D3557 !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        height: 28px !important;
-        padding: 2px 8px !important;
-        font-size: 0.78rem !important;
-    }
+[data-testid="stSidebarNav"]{
+    padding-top: 8px !important;
+}
 
-    [data-testid="stSidebar"] [data-testid="stNumberInput"] > div {
-        height: 30px !important;
-    }
+[data-testid="stSidebarNav"] a{
+    background: #DE7A24 !important;
+    color: white !important;
 
-    [data-testid="stSidebar"] [data-testid="stNumberInput"] button {
-        height: 28px !important;
-        width: 24px !important;
-        padding: 0 !important;
-        background-color: rgba(255,255,255,0.15) !important;
-        color: white !important;
-        border: none !important;
-    }
+    border-radius: 8px !important;
 
-    /* Contenedor del selectbox — permitir que el texto respire */
-    [data-testid="stSidebar"] [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-        background-color: rgba(255, 255, 255, 0.92) !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        min-height: 30px !important;
-        height: 30px !important;
-        display: flex !important;
-        align-items: center !important;
-        overflow: visible !important;
-    }
+    padding: 4px 12px !important;
 
-    /* Texto seleccionado centrado verticalmente */
-    [data-testid="stSidebar"] [data-testid="stSelectbox"] [class*="singleValue"],
-    [data-testid="stSidebar"] [data-testid="stSelectbox"] [class*="placeholder"],
-    [data-testid="stSidebar"] [data-testid="stSelectbox"] div[data-baseweb="select"] span,
-    [data-testid="stSidebar"] [data-testid="stSelectbox"] input {
-        color: #1D3557 !important;
-        font-size: 0.75rem !important;
-        line-height: 30px !important;
-        overflow: visible !important;
-    }
+    min-height: 30px !important;
 
-    /* Flecha del selectbox */
-    [data-testid="stSidebar"] [data-testid="stSelectbox"] svg {
-        fill: #1D3557 !important;
-    }
+    font-size: 13px !important;
+    font-weight: 600 !important;
 
-    /* Menú desplegable */
-    [data-baseweb="popover"] ul li,
-    [data-baseweb="menu"] ul li,
-    [data-baseweb="popover"] li {
-        color: #1D3557 !important;
-        font-size: 0.75rem !important;
-    }
+    display: flex !important;
+    align-items: center !important;
+}
 
-    /* ── REDUCIR ESPACIADO ── */
-    [data-testid="stSidebar"] .stElementContainer {
-        margin-bottom: 0px !important;
-        padding-bottom: 0px !important;
-    }
+[data-testid="stSidebarNav"] span{
+    color: white !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
 
-    [data-testid="stSidebar"] .stNumberInput,
-    [data-testid="stSidebar"] .stSelectbox {
-        margin-bottom: 3px !important;
-        padding-bottom: 0px !important;
-    }
+/* ==========================================
+   TEXTO GENERAL SIDEBAR
+========================================== */
 
-    [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
-        gap: 0px !important;
-    }
+[data-testid="stSidebar"]{
+    color: white !important;
+}
 
-    [data-testid="stSidebar"] .element-container {
-        margin-bottom: 2px !important;
-    }
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p{
+    color: white !important;
+}
 
-    /* ── BOTÓN PREDECIR ── */
-    [data-testid="stSidebar"] button[kind="primary"] {
-        background-color: #DE7A24 !important;
-        color: white !important;
-        font-weight: 700 !important;
-        border: none !important;
-    }
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3{
+    color: white !important;
+}
 
-    /* ── PADDING GENERAL ── */
-    [data-testid="stSidebar"] > div:first-child {
-        padding-top: 0.8rem !important;
-        padding-bottom: 1rem !important;
-    }
-            
-    /* Botones app y Dashboard del sidebar */
-    [data-testid="stSidebar"] [data-testid="stSidebarNav"] a,
-    [data-testid="stSidebar"] [data-testid="stSidebarNav"] span,
-    [data-testid="stSidebar"] nav a,
-    [data-testid="stSidebar"] nav span {
-        color: white !important;
-        background-color: #DE7A24 !important;
-        border-radius: 6px !important;
-        font-weight: 600 !important;
-    }
+/* ==========================================
+   INPUTS
+========================================== */
+
+[data-testid="stSidebar"] input[type="number"]{
+    background-color: rgba(255,255,255,.95) !important;
+    color: #1D3557 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stSelectbox"] div[data-baseweb="select"] > div{
+    background-color: rgba(255,255,255,.95) !important;
+    color: #1D3557 !important;
+}
+
+/* ==========================================
+   BOTÓN PREDECIR
+========================================== */
+
+[data-testid="stSidebar"] button[kind="primary"]{
+    background-color: #DE7A24 !important;
+    color: white !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+
+[data-testid="stSidebar"] button[kind="primary"]:hover{
+    background-color: #F28E2B !important;
+}
+
+/* ==========================================
+   ESPACIADOS
+========================================== */
+
+[data-testid="stSidebar"] .stElementContainer{
+    margin-bottom: 2px !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"]{
+    gap: 2px !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 # ──────────────────────────────────────────────
